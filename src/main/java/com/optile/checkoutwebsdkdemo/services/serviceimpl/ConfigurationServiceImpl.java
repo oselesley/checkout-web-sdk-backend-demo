@@ -3,6 +3,8 @@
  */
 package com.optile.checkoutwebsdkdemo.services.serviceimpl;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,15 +19,16 @@ import com.oscato.service.network.impl.reader.NetworkReader;
 public class ConfigurationServiceImpl implements ConfigurationService {
 	private RestTemplate restTemplate = new RestTemplate();
 	@Override
-	public NetworkModel getConfiguration() {
+	public NetworkModel getConfiguration(final String network, final String formType) {
 		NetworkReader networkReader = new NetworkReader();
-		NetworkModel model = networkReader.getJson("mastercard");
+		NetworkModel model = networkReader.getJson(network);
 		System.out.println(model);
+		model.setForms(model.getForms().stream().filter(form -> form.getType().equalsIgnoreCase(formType)).collect(Collectors.toList()));
 		return model;
 	}
 
-	public static void main(String[] args) {
-		ConfigurationService service = new ConfigurationServiceImpl();
-		service.getConfiguration();
-	}
+//	public static void main(String[] args) {
+//		ConfigurationService service = new ConfigurationServiceImpl();
+//		service.getConfiguration();
+//	}
 }

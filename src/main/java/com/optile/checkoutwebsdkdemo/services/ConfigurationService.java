@@ -9,5 +9,5 @@ import com.oscato.service.network.impl.reader.NetworkModel;
  * @author Alex Dereviago
  */
 public interface ConfigurationService {
-	NetworkModel getConfiguration();
+	NetworkModel getConfiguration(final String network, final String formType);
 }

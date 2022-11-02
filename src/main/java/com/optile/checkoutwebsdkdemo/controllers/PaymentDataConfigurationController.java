@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +24,8 @@ public class PaymentDataConfigurationController {
 	@Autowired
 	private ConfigurationService resourceService;
 
-	@GetMapping
-	public ResponseEntity<NetworkModel> getConfigurationData() {
-		return new ResponseEntity<>(resourceService.getConfiguration(), HttpStatus.OK);
+	@GetMapping("/networks/{network}/forms/{formType}")
+	public ResponseEntity<NetworkModel> getConfigurationData(@PathVariable final String network, @PathVariable final String formType) {
+		return new ResponseEntity<>(resourceService.getConfiguration(network, formType), HttpStatus.OK);
 	}
 }
