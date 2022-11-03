@@ -22,13 +22,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 	public NetworkModel getConfiguration(final String network, final String formType) {
 		NetworkReader networkReader = new NetworkReader();
 		NetworkModel model = networkReader.getJson(network);
-		System.out.println(model);
 		model.setForms(model.getForms().stream().filter(form -> form.getType().equalsIgnoreCase(formType)).collect(Collectors.toList()));
 		return model;
 	}
-
-//	public static void main(String[] args) {
-//		ConfigurationService service = new ConfigurationServiceImpl();
-//		service.getConfiguration();
-//	}
 }
